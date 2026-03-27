@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contract Clause Library — Crystal Grossley Portfolio</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f7f7f5;
+    --bg-tertiary: #f0efe9;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666660;
+    --text-muted: #999994;
+    --border: rgba(0,0,0,0.12);
+    --border-med: rgba(0,0,0,0.2);
+    --accent: #185FA5;
+    --accent-bg: #E6F1FB;
+    --accent-text: #0C447C;
+    --accent-border: rgba(24,95,165,0.3);
+    --success-bg: #EAF3DE;
+    --success-text: #27500A;
+    --success-border: rgba(59,109,17,0.3);
+    --warning-bg: #FAEEDA;
+    --warning-text: #633806;
+    --warning-border: rgba(133,79,11,0.3);
+    --danger-bg: #FCEBEB;
+    --danger-text: #A32D2D;
+    --danger-border: rgba(163,45,45,0.3);
+    --conf-bg: #E6F1FB;
+    --conf-text: #0C447C;
+    --pay-bg: #EAF3DE;
+    --pay-text: #27500A;
+    --fed-bg: #FAEEDA;
+    --fed-text: #633806;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1e1e1c;
+      --bg-secondary: #252523;
+      --bg-tertiary: #2c2c2a;
+      --text-primary: #f0efe9;
+      --text-secondary: #a8a8a0;
+      --text-muted: #6b6b65;
+      --border: rgba(255,255,255,0.1);
+      --border-med: rgba(255,255,255,0.18);
+      --accent: #378ADD;
+      --accent-bg: #0c2a45;
+      --accent-text: #85B7EB;
+      --accent-border: rgba(55,138,221,0.3);
+      --success-bg: #173404;
+      --success-text: #97C459;
+      --success-border: rgba(99,153,34,0.3);
+      --warning-bg: #412402;
+      --warning-text: #EF9F27;
+      --warning-border: rgba(239,159,39,0.3);
+      --danger-bg: #501313;
+      --danger-text: #F09595;
+      --danger-border: rgba(240,149,149,0.3);
+      --conf-bg: #0c2a45;
+      --conf-text: #85B7EB;
+      --pay-bg: #173404;
+      --pay-text: #97C459;
+      --fed-bg: #412402;
+      --fed-text: #EF9F27;
+    }
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .page-wrap { max-width: 760px; margin: 0 auto; }
+
+  .page-header { margin-bottom: 2rem; }
+  .page-header h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+  .page-header p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+  .byline { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+  .byline a { color: var(--accent); text-decoration: none; }
+
+  .toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .toolbar input {
+    flex: 1;
+    min-width: 200px;
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--text-primary);
+    background: var(--bg);
+    border: 0.5px solid var(--border-med);
+    border-radius: var(--radius-md);
+    padding: 8px 12px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .toolbar input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(24,95,165,0.12);
+  }
+
+  .toolbar select {
+    font-family: var(--font);
+    font-size: 13px;
+    color: var(--text-primary);
+    background: var(--bg);
+    border: 0.5px solid var(--border-med);
+    border-radius: var(--radius-md);
+    padding: 8px 32px 8px 12px;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer;
+  }
+
+  .cat-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+
+  .cpill {
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 0.5px solid var(--border);
+    color: var(--text-secondary);
+    background: var(--bg);
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .cpill.active-all { background: var(--bg-secondary); color: var(--text-primary); border-color: var(--border-med); }
+  .cpill.active-conf { background: var(--conf-bg); color: var(--conf-text); border-color: var(--accent-border); }
+  .cpill.active-pay { background: var(--pay-bg); color: var(--pay-text); border-color: var(--success-border); }
+  .cpill.active-fed { background: var(--fed-bg); color: var(--fed-text); border-color: var(--warning-border); }
+
+  .results-bar {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .clause-grid { display: flex; flex-direction: column; gap: 8px; }
+
+  .clause-card {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+
+  .clause-card:hover { border-color: var(--border-med); }
+  .clause-card.selected { border-color: var(--accent); }
+
+  .clause-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    gap: 12px;
+  }
+
+  .clause-title { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+
+  .clause-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 5px;
+  }
+
+  .clause-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  .cat-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .cat-conf { background: var(--conf-bg); color: var(--conf-text); }
+  .cat-pay { background: var(--pay-bg); color: var(--pay-text); }
+  .cat-fed { background: var(--fed-bg); color: var(--fed-text); }
+
+  .risk-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .risk-low { background: var(--success-bg); color: var(--success-text); }
+  .risk-med { background: var(--warning-bg); color: var(--warning-text); }
+  .risk-high { background: var(--danger-bg); color: var(--danger-text); }
+
+  .clause-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .chevron {
+    font-size: 18px;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+    line-height: 1;
+  }
+
+  .compare-check {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .compare-check input[type=checkbox] {
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  .clause-body { display: none; padding: 0 1.25rem 1.25rem; }
+  .clause-body.open { display: block; }
+
+  .clause-text {
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    padding: 1rem 1.25rem;
+    border-left: 3px solid var(--accent);
+    font-family: var(--mono);
+  }
+
+  .notes-section { margin-top: 1rem; }
+
+  .notes-title {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+  }
+
+  .note-list { display: flex; flex-direction: column; gap: 5px; }
+
+  .note-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .note-item::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  .compare-bar {
+    background: var(--bg);
+    border: 0.5px solid var(--border-med);
+    border-radius: var(--radius-lg);
+    padding: 0.875rem 1.25rem;
+    margin-top: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .compare-bar.hidden { display: none; }
+
+  .compare-label { font-size: 13px; color: var(--text-secondary); }
+  .compare-label strong { color: var(--text-primary); }
+
+  .compare-actions { display: flex; gap: 8px; }
+
+  button {
+    font-family: var(--font);
+    font-size: 13px;
+    padding: 7px 16px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    border: 0.5px solid var(--border-med);
+    background: var(--bg);
+    color: var(--text-primary);
+    transition: background 0.15s, transform 0.1s;
+  }
+
+  button:hover { background: var(--bg-secondary); }
+  button:active { transform: scale(0.98); }
+
+  button.primary {
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    border-color: var(--accent-border);
+    font-weight: 500;
+  }
+
+  button.primary:hover { opacity: 0.85; background: var(--accent-bg); }
+
+  .compare-view { display: none; margin-top: 1.25rem; }
+  .compare-view.open { display: block; }
+
+  .compare-header {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .compare-col {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .compare-col-head {
+    padding: 0.875rem 1rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .compare-col-title { font-size: 13px; font-weight: 500; margin-bottom: 5px; }
+
+  .compare-col-body {
+    padding: 1rem;
+    font-size: 12px;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    font-family: var(--mono);
+  }
+
+  .compare-footer { margin-top: 0.75rem; }
+
+  @media (max-width: 520px) {
+    .compare-grid { grid-template-columns: 1fr; }
+    .compare-bar { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="page-header">
+    <h1>Contract clause library</h1>
+    <p>Searchable reference library of standard contract clauses with drafting notes, risk levels, and side-by-side comparison. Covers confidentiality &amp; data use, payment &amp; compensation, and federal compliance.</p>
+    <p class="byline">Portfolio project by <a href="https://linkedin.com/in/hirecrystalgee" target="_blank">Crystal Grossley</a> — Legal Operations &amp; Contracts Professional</p>
+  </div>
+
+  <div class="toolbar">
+    <input type="text" id="search" placeholder="Search clauses, terms, keywords...">
+    <select id="risk-filter">
+      <option value="">All risk levels</option>
+      <option value="low">Low risk</option>
+      <option value="med">Medium risk</option>
+      <option value="high">High risk</option>
+    </select>
+  </div>
+
+  <div class="cat-pills">
+    <div class="cpill active-all" onclick="setCategory('all',this)">All clauses</div>
+    <div class="cpill" onclick="setCategory('conf',this)">Confidentiality &amp; data use</div>
+    <div class="cpill" onclick="setCategory('pay',this)">Payment &amp; compensation</div>
+    <div class="cpill" onclick="setCategory('fed',this)">Federal compliance</div>
+  </div>
+
+  <div class="results-bar" id="results-bar">Showing 12 clauses</div>
+  <div class="clause-grid" id="clause-grid"></div>
+
+  <div class="compare-bar hidden" id="compare-bar">
+    <span class="compare-label"><strong id="compare-count">0</strong> clauses selected</span>
+    <div class="compare-actions">
+      <button onclick="clearCompare()">Clear</button>
+      <button class="primary" onclick="runCompare()">Compare side by side</button>
+    </div>
+  </div>
+
+  <div class="compare-view" id="compare-view">
+    <div class="compare-header">Side-by-side comparison</div>
+    <div class="compare-grid" id="compare-grid"></div>
+    <div class="compare-footer">
+      <button onclick="closeCompare()">Close comparison</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const clauses = [
+  {
+    id: 1, cat: 'conf', risk: 'low',
+    title: 'Standard non-disclosure — mutual',
+    desc: 'Bilateral confidentiality obligation covering both parties equally.',
+    text: 'Each party agrees to hold in strict confidence all Confidential Information received from the other party and to use such information solely for the purposes set forth in this Agreement. Neither party shall disclose Confidential Information to any third party without prior written consent of the disclosing party.',
+    notes: [
+      'Appropriate for early-stage vendor discussions or partnerships',
+      'Does not cover unilateral disclosure scenarios — use a one-way NDA if only one party is disclosing',
+      'Review definition of "Confidential Information" to ensure adequate scope before execution'
+    ]
+  },
+  {
+    id: 2, cat: 'conf', risk: 'high',
+    title: 'Data use and handling — federal programs',
+    desc: 'Restricts use and disclosure of data collected under federally funded programs.',
+    text: 'Recipient shall use data collected or accessed under this Agreement solely for purposes authorized by the funding agency. Recipient shall implement safeguards consistent with applicable federal data security standards, including but not limited to FISMA and applicable OMB circulars. Unauthorized disclosure of program data may constitute a material breach and trigger mandatory agency notification.',
+    notes: [
+      'Required for HHS, CDC, and IHS-funded agreements',
+      'Coordinate with IT on FISMA compliance before execution',
+      'Mandatory agency notification clause activates upon actual or suspected breach'
+    ]
+  },
+  {
+    id: 3, cat: 'conf', risk: 'high',
+    title: 'PII and privacy protection clause',
+    desc: 'Governs handling of personally identifiable information under applicable privacy law.',
+    text: 'Contractor shall not collect, use, retain, or disclose personally identifiable information (PII) beyond what is necessary to perform under this Agreement. Contractor shall maintain a written privacy policy consistent with applicable federal and state law, including the Privacy Act of 1974 where applicable, and shall promptly notify the contracting agency of any actual or suspected unauthorized disclosure of PII.',
+    notes: [
+      'Apply to any subrecipient handling beneficiary or participant data',
+      'Privacy Act of 1974 applies when contractor acts on behalf of a federal agency',
+      'Include incident response timeline in the associated SOW or exhibit'
+    ]
+  },
+  {
+    id: 4, cat: 'conf', risk: 'med',
+    title: 'Tribal data sovereignty clause',
+    desc: 'Asserts tribal ownership of data generated through tribally funded or governed programs.',
+    text: 'All data generated, collected, or derived from activities under this Agreement that relate to Tribal members, Tribal lands, or Tribal programs shall remain the exclusive property of the Tribe. Contractor shall not publish, share, or otherwise disclose such data without prior written authorization from the Tribal governing body. Upon termination of this Agreement, all data shall be returned or destroyed as directed by the Tribe.',
+    notes: [
+      'Essential for any agreement involving member data or program outcomes',
+      'Sovereignty clause may need tailoring to the specific tribal governance structure',
+      'Consult with tribal legal counsel on publication and research use provisions'
+    ]
+  },
+  {
+    id: 5, cat: 'pay', risk: 'low',
+    title: 'Fixed-price payment schedule',
+    desc: 'Establishes a fixed compensation amount payable on a defined schedule.',
+    text: 'In consideration for the services rendered under this Agreement, Organization shall pay Contractor a fixed fee of $[AMOUNT], payable in equal installments of $[INSTALLMENT] on the [DATE] of each [month/quarter]. Payment is conditioned upon receipt of a compliant invoice and satisfactory progress as determined by the Organization\'s designated representative.',
+    notes: [
+      'Use for defined-scope engagements with predictable deliverables',
+      'Tie installments to milestones rather than calendar dates for better accountability',
+      'Define "satisfactory progress" in the SOW to avoid disputes at payment time'
+    ]
+  },
+  {
+    id: 6, cat: 'pay', risk: 'high',
+    title: 'Cost reimbursement — federal allowability',
+    desc: 'Limits reimbursable costs to those allowable under OMB Uniform Guidance 2 CFR 200.',
+    text: 'Reimbursement under this Agreement is limited to costs that are allowable, allocable, and reasonable as defined in 2 CFR Part 200, Subpart E. Contractor shall maintain adequate documentation supporting all claimed costs, including timesheets, receipts, and allocation records, and shall make such records available for audit upon request. Unallowable costs, including those identified in 2 CFR §200.420 through §200.476, shall not be charged to this Agreement.',
+    notes: [
+      'Mandatory for any federally funded subaward or subcontract',
+      'Direct cost allocations must be documented — indirect rate applies only if pre-negotiated',
+      'Audit access is required by Uniform Guidance §200.337 — this clause is non-negotiable'
+    ]
+  },
+  {
+    id: 7, cat: 'pay', risk: 'med',
+    title: 'Late payment and interest clause',
+    desc: 'Addresses consequences and interest accrual for untimely payment.',
+    text: 'Payment not received within [30] days of invoice date shall accrue interest at the rate of [1.5%] per month on the outstanding balance. Organization shall provide written notice of any disputed invoice within [15] days of receipt. Undisputed amounts shall remain due and payable regardless of any dispute concerning other amounts.',
+    notes: [
+      'Negotiate rate and grace period before execution — defaults vary by jurisdiction',
+      'Dispute notice window protects both parties from silent non-payment',
+      'Separating undisputed amounts prevents full payment holds during partial disputes'
+    ]
+  },
+  {
+    id: 8, cat: 'pay', risk: 'med',
+    title: 'Budget modification and prior approval',
+    desc: 'Governs reallocation of funds between budget categories and required approvals.',
+    text: 'Subrecipient may reallocate funds between approved budget line items up to [10%] of the total award without prior written approval from the pass-through entity. Reallocations exceeding this threshold, or any reallocation into or out of equipment or indirect cost categories, require prior written approval. All modifications shall be documented and retained in the grant file.',
+    notes: [
+      'Threshold percentages vary by funder — confirm against the prime award terms',
+      'Equipment category changes almost always require prior approval regardless of amount',
+      'Document all reallocations in real time — retroactive approvals are frequently denied'
+    ]
+  },
+  {
+    id: 9, cat: 'fed', risk: 'med',
+    title: 'SAM.gov registration requirement',
+    desc: 'Requires active System for Award Management registration as a condition of award.',
+    text: 'As a condition of this Agreement, Subrecipient must maintain an active registration in the System for Award Management (SAM.gov) throughout the period of performance. Subrecipient shall provide its Unique Entity Identifier (UEI) upon execution and shall notify the pass-through entity immediately upon any change in registration status. Failure to maintain active SAM.gov registration may result in suspension of payments.',
+    notes: [
+      'SAM.gov registration must be renewed annually — set a calendar reminder at execution',
+      'UEI replaced DUNS in April 2022 — confirm subrecipient has completed the transition',
+      'A lapse in registration can trigger audit findings at the pass-through entity level'
+    ]
+  },
+  {
+    id: 10, cat: 'fed', risk: 'high',
+    title: 'Subrecipient monitoring obligations',
+    desc: 'Establishes pass-through entity monitoring duties per 2 CFR 200.332.',
+    text: 'In accordance with 2 CFR §200.332, pass-through entity shall: (a) evaluate subrecipient risk prior to award; (b) monitor subrecipient activities to ensure the federal award is used for authorized purposes; (c) ensure subrecipient meets applicable audit requirements; and (d) take action when performance or compliance issues are identified. Pass-through entity shall document all monitoring activities and findings.',
+    notes: [
+      'Non-compliance with §200.332 is one of the most common federal audit findings',
+      'Risk assessment must be completed and documented before subaward execution',
+      'Monitoring plan should specify frequency, method, and documentation standards'
+    ]
+  },
+  {
+    id: 11, cat: 'fed', risk: 'med',
+    title: 'Debarment and suspension certification',
+    desc: 'Certifies that contractor is not debarred, suspended, or excluded from federal programs.',
+    text: 'By signing this Agreement, Contractor certifies that it is not presently debarred, suspended, proposed for debarment, declared ineligible, or voluntarily excluded from participation in federal assistance programs, as defined in 2 CFR Part 180. Contractor shall immediately notify Organization if this status changes during the period of performance.',
+    notes: [
+      'Verify independently at SAM.gov exclusions search before and at execution',
+      'Applies to contractors, subcontractors, and key personnel',
+      'Self-certification does not substitute for pass-through entity verification'
+    ]
+  },
+  {
+    id: 12, cat: 'fed', risk: 'med',
+    title: 'Audit requirements — single audit threshold',
+    desc: 'Triggers Single Audit Act requirements for subrecipients expending $750K+ in federal funds.',
+    text: 'If Subrecipient expends $750,000 or more in federal financial assistance during its fiscal year, it shall arrange for a single audit or program-specific audit in accordance with 2 CFR Part 200, Subpart F. Subrecipient shall submit audit reports to the Federal Audit Clearinghouse within the earlier of 30 calendar days after receipt of the auditor\'s report or nine months after the end of the fiscal year.',
+    notes: [
+      '$750K threshold applies to total federal expenditures across all awards, not just this one',
+      'Pass-through entity must review subrecipient audit reports and follow up on findings',
+      'Late audit submissions are themselves an audit finding — build the timeline into subaward terms'
+    ]
+  }
+];
+
+let activeCat = 'all';
+let compareSet = new Set();
+
+const catLabel = c => ({ conf: 'Confidentiality', pay: 'Payment', fed: 'Federal compliance' }[c] || c);
+const riskLabel = r => ({ low: 'Low risk', med: 'Medium risk', high: 'High risk' }[r] || r);
+
+function getFiltered() {
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  const rf = document.getElementById('risk-filter').value;
+  return clauses.filter(c => {
+    if (activeCat !== 'all' && c.cat !== activeCat) return false;
+    if (rf && c.risk !== rf) return false;
+    if (q && !(
+      c.title.toLowerCase().includes(q) ||
+      c.desc.toLowerCase().includes(q) ||
+      c.text.toLowerCase().includes(q) ||
+      c.notes.some(n => n.toLowerCase().includes(q))
+    )) return false;
+    return true;
+  });
+}
+
+function render() {
+  const filtered = getFiltered();
+  document.getElementById('results-bar').textContent = `Showing ${filtered.length} clause${filtered.length !== 1 ? 's' : ''}`;
+  const grid = document.getElementById('clause-grid');
+
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="no-results">No clauses match your search. Try different keywords.</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(c => `
+    <div class="clause-card${compareSet.has(c.id) ? ' selected' : ''}" id="card-${c.id}">
+      <div class="clause-head" onclick="toggle(${c.id})">
+        <div style="flex:1;min-width:0">
+          <div class="clause-title">${c.title}</div>
+          <div class="clause-meta">
+            <span class="cat-badge cat-${c.cat}">${catLabel(c.cat)}</span>
+            <span class="risk-badge risk-${c.risk}">${riskLabel(c.risk)}</span>
+          </div>
+          <div class="clause-desc">${c.desc}</div>
+        </div>
+        <div class="clause-actions">
+          <span class="chevron" id="chev-${c.id}">›</span>
+          <label class="compare-check" onclick="event.stopPropagation()">
+            <input type="checkbox" ${compareSet.has(c.id) ? 'checked' : ''} onchange="toggleCompare(${c.id}, this)"> Compare
+          </label>
+        </div>
+      </div>
+      <div class="clause-body" id="body-${c.id}">
+        <div class="clause-text">${c.text}</div>
+        <div class="notes-section">
+          <div class="notes-title">Drafting notes</div>
+          <ul class="note-list">
+            ${c.notes.map(n => `<li class="note-item">${n}</li>`).join('')}
+          </ul>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggle(id) {
+  const body = document.getElementById('body-' + id);
+  const chev = document.getElementById('chev-' + id);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  chev.style.transform = isOpen ? '' : 'rotate(90deg)';
+}
+
+function setCategory(cat, el) {
+  activeCat = cat;
+  document.querySelectorAll('.cpill').forEach(p => p.className = 'cpill');
+  el.classList.add('active-' + cat);
+  closeCompare();
+  render();
+}
+
+function toggleCompare(id, cb) {
+  if (cb.checked) compareSet.add(id);
+  else compareSet.delete(id);
+  updateCompareBar();
+  const card = document.getElementById('card-' + id);
+  if (card) card.classList.toggle('selected', cb.checked);
+}
+
+function updateCompareBar() {
+  const bar = document.getElementById('compare-bar');
+  bar.classList.toggle('hidden', compareSet.size === 0);
+  document.getElementById('compare-count').textContent = compareSet.size;
+}
+
+function clearCompare() {
+  compareSet.clear();
+  updateCompareBar();
+  closeCompare();
+  render();
+}
+
+function runCompare() {
+  const selected = clauses.filter(c => compareSet.has(c.id));
+  if (selected.length < 2) { alert('Select at least 2 clauses to compare.'); return; }
+  document.getElementById('compare-grid').innerHTML = selected.map(c => `
+    <div class="compare-col">
+      <div class="compare-col-head">
+        <div class="compare-col-title">${c.title}</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span class="cat-badge cat-${c.cat}" style="font-size:10px">${catLabel(c.cat)}</span>
+          <span class="risk-badge risk-${c.risk}" style="font-size:10px">${riskLabel(c.risk)}</span>
+        </div>
+      </div>
+      <div class="compare-col-body">${c.text}</div>
+    </div>
+  `).join('');
+  document.getElementById('compare-view').classList.add('open');
+  document.getElementById('compare-view').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function closeCompare() {
+  document.getElementById('compare-view').classList.remove('open');
+}
+
+document.getElementById('search').addEventListener('input', render);
+document.getElementById('risk-filter').addEventListener('change', render);
+render();
+</script>
+</body>
+</html>

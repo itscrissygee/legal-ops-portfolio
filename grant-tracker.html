@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Federal Grant Compliance Tracker — Crystal Grossley Portfolio</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f7f7f5;
+    --bg-tertiary: #f0efe9;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666660;
+    --text-muted: #999994;
+    --border: rgba(0,0,0,0.12);
+    --border-med: rgba(0,0,0,0.2);
+    --accent: #185FA5;
+    --accent-bg: #E6F1FB;
+    --accent-text: #0C447C;
+    --accent-border: rgba(24,95,165,0.3);
+    --success-bg: #EAF3DE;
+    --success-text: #27500A;
+    --warning-bg: #FAEEDA;
+    --warning-text: #633806;
+    --danger-bg: #FCEBEB;
+    --danger-text: #A32D2D;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1e1e1c;
+      --bg-secondary: #252523;
+      --bg-tertiary: #2c2c2a;
+      --text-primary: #f0efe9;
+      --text-secondary: #a8a8a0;
+      --text-muted: #6b6b65;
+      --border: rgba(255,255,255,0.1);
+      --border-med: rgba(255,255,255,0.18);
+      --accent: #378ADD;
+      --accent-bg: #0c2a45;
+      --accent-text: #85B7EB;
+      --accent-border: rgba(55,138,221,0.3);
+      --success-bg: #173404;
+      --success-text: #97C459;
+      --warning-bg: #412402;
+      --warning-text: #EF9F27;
+      --danger-bg: #501313;
+      --danger-text: #F09595;
+    }
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .page-wrap { max-width: 800px; margin: 0 auto; }
+  .page-header { margin-bottom: 2rem; }
+  .page-header h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+  .page-header p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+  .byline { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+  .byline a { color: var(--accent); text-decoration: none; }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: .875rem 1rem;
+  }
+
+  .stat-label { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
+  .stat-val { font-size: 24px; font-weight: 500; color: var(--text-primary); }
+  .stat-val.danger { color: var(--danger-text); }
+  .stat-val.warning { color: var(--warning-text); }
+  .stat-val.success { color: var(--success-text); }
+
+  .toolbar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    align-items: center;
+  }
+
+  select {
+    font-family: var(--font);
+    font-size: 13px;
+    color: var(--text-primary);
+    background: var(--bg);
+    border: 0.5px solid var(--border-med);
+    border-radius: var(--radius-md);
+    padding: 7px 28px 7px 10px;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    cursor: pointer;
+  }
+
+  .view-pills { display: flex; gap: 6px; margin-left: auto; }
+
+  .vpill {
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 0.5px solid var(--border);
+    color: var(--text-secondary);
+    background: var(--bg);
+    transition: all .15s;
+    user-select: none;
+  }
+
+  .vpill.active { background: var(--accent-bg); color: var(--accent-text); border-color: var(--accent-border); }
+
+  .timeline-month { margin-bottom: 1.5rem; }
+
+  .month-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: .5rem;
+    padding-bottom: .5rem;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .month-sub { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+
+  .timeline-bar {
+    height: 6px;
+    background: var(--bg-secondary);
+    border-radius: 3px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .tbar-fill { height: 100%; border-radius: 3px; background: var(--accent); transition: width .3s; }
+
+  .event-list { display: flex; flex-direction: column; gap: 6px; }
+
+  .event {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: .75rem 1rem;
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: border-color .15s;
+  }
+
+  .event:hover { border-color: var(--border-med); }
+
+  .event-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  .dot-overdue { background: var(--danger-text); }
+  .dot-due { background: var(--warning-text); }
+  .dot-upcoming { background: var(--accent); }
+  .dot-submitted { background: var(--success-text); }
+
+  .event-main { flex: 1; min-width: 0; }
+  .event-title { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+
+  .event-meta {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 3px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .event-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .s-overdue { background: var(--danger-bg); color: var(--danger-text); }
+  .s-due { background: var(--warning-bg); color: var(--warning-text); }
+  .s-upcoming { background: var(--accent-bg); color: var(--accent-text); }
+  .s-submitted { background: var(--success-bg); color: var(--success-text); }
+
+  .type-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    border: 0.5px solid var(--border);
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .days-text { font-size: 11px; color: var(--text-muted); }
+
+  .detail-panel {
+    display: none;
+    margin-top: 1.5rem;
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .detail-panel.open { display: block; }
+
+  .detail-head {
+    padding: 1rem 1.25rem;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .detail-title { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+
+  .detail-body {
+    padding: 1rem 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .detail-field label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .detail-field p { font-size: 13px; color: var(--text-primary); }
+
+  .detail-notes {
+    grid-column: 1 / -1;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    padding: .875rem 1rem;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  button {
+    font-family: var(--font);
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    border: 0.5px solid var(--border-med);
+    background: var(--bg);
+    color: var(--text-primary);
+    transition: background .15s, transform .1s;
+  }
+
+  button:hover { background: var(--bg-secondary); }
+  button:active { transform: scale(0.98); }
+
+  @media (max-width: 520px) {
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .detail-body { grid-template-columns: 1fr; }
+    .event-right { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="page-header">
+    <h1>Federal grant compliance tracker</h1>
+    <p>Timeline-based tracker for reporting deadlines, budget periods, document status, and subrecipient compliance across multi-agency federal grant portfolios.</p>
+    <p class="byline">Portfolio project by <a href="https://linkedin.com/in/hirecrystalgee" target="_blank">Crystal Grossley</a> — Legal Operations &amp; Contracts Professional</p>
+  </div>
+
+  <div class="stat-grid" id="stats"></div>
+
+  <div class="toolbar">
+    <select id="agency-filter" onchange="render()">
+      <option value="">All agencies</option>
+      <option value="CDC">CDC</option>
+      <option value="EPA">EPA</option>
+      <option value="HHS">HHS</option>
+      <option value="IHS">IHS</option>
+      <option value="SAMHSA">SAMHSA</option>
+    </select>
+    <select id="type-filter" onchange="render()">
+      <option value="">All types</option>
+      <option value="report">Reporting deadline</option>
+      <option value="budget">Budget period</option>
+      <option value="doc">Document status</option>
+      <option value="sub">Subrecipient</option>
+    </select>
+    <div class="view-pills">
+      <div class="vpill active" id="pill-timeline" onclick="setView('timeline')">Timeline</div>
+      <div class="vpill" id="pill-list" onclick="setView('list')">All items</div>
+    </div>
+  </div>
+
+  <div id="main-view"></div>
+
+  <div class="detail-panel" id="detail-panel">
+    <div class="detail-head">
+      <div>
+        <div class="detail-title" id="d-title"></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap" id="d-badges"></div>
+      </div>
+      <button onclick="closeDetail()">Close</button>
+    </div>
+    <div class="detail-body">
+      <div class="detail-field"><label>Agency</label><p id="d-agency"></p></div>
+      <div class="detail-field"><label>Due date</label><p id="d-due"></p></div>
+      <div class="detail-field"><label>Grant / award number</label><p id="d-grant"></p></div>
+      <div class="detail-field"><label>Responsible party</label><p id="d-owner"></p></div>
+      <div class="detail-field"><label>Budget period</label><p id="d-period"></p></div>
+      <div class="detail-field"><label>Award amount</label><p id="d-amount"></p></div>
+      <div class="detail-notes" id="d-notes"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const today = new Date();
+
+  const events = [
+    { id:1, title:'CDC PHEP Quarterly Progress Report', agency:'CDC', type:'report', due:new Date(2026,2,31), grant:'CDC-PHEP-2025-001', owner:'Programs Team', period:'Jan 1 – Mar 31, 2026', amount:'$412,000', status:'due', notes:'Q1 report covers January through March. Submit via CDC PHEP portal. Coordinate with program staff for activity data by March 25.' },
+    { id:2, title:'EPA Environmental Justice Grant — Budget Period End', agency:'EPA', type:'budget', due:new Date(2026,3,15), grant:'EPA-EJ-2024-047', owner:'Finance', period:'Apr 16, 2025 – Apr 15, 2026', amount:'$275,000', status:'upcoming', notes:'Budget period closes April 15. All costs must be incurred by this date. Closeout report due 90 days after end date. Begin no-cost extension review now if needed.' },
+    { id:3, title:'IHS Urban Indian Health — Subrecipient Monitoring Visit', agency:'IHS', type:'sub', due:new Date(2026,2,15), grant:'IHS-UIH-2025-012', owner:'Compliance', period:'Oct 1, 2025 – Sep 30, 2026', amount:'$198,500', status:'overdue', notes:'Monitoring visit was scheduled March 15. Contact subrecipient to reschedule immediately. Document delay and reason in monitoring file per 2 CFR §200.332.' },
+    { id:4, title:'HHS ACF Annual Performance Report', agency:'HHS', type:'report', due:new Date(2026,3,30), grant:'HHS-ACF-2025-089', owner:'Programs Team', period:'Oct 1, 2025 – Sep 30, 2026', amount:'$534,000', status:'upcoming', notes:'Annual performance report due April 30 via ACF online reporting system. Requires GPRA outcome data. Begin data collection no later than April 1.' },
+    { id:5, title:'SAMHSA CCBHC Grant — Financial Status Report', agency:'SAMHSA', type:'report', due:new Date(2026,2,28), grant:'SAMHSA-CCBHC-2024-003', owner:'Finance', period:'Oct 1, 2025 – Sep 30, 2026', amount:'$890,000', status:'due', notes:'SF-425 financial report due today. Submit via Payment Management System (PMS). Verify all expenditures are posted in accounting system before submission.' },
+    { id:6, title:'CDC OSTLTS — Subrecipient Risk Assessment', agency:'CDC', type:'sub', due:new Date(2026,4,1), grant:'CDC-OSTLTS-2025-014', owner:'Compliance', period:'Sept 1, 2025 – Aug 31, 2026', amount:'$156,000', status:'upcoming', notes:'Annual subrecipient risk assessment due before May 1 per award terms. Use standardized risk assessment tool. Document results and monitoring plan in grant file.' },
+    { id:7, title:'EPA Clean Water Act — Closeout Document Package', agency:'EPA', type:'doc', due:new Date(2026,1,28), grant:'EPA-CWA-2024-022', owner:'Contracts Team', period:'Mar 1, 2025 – Feb 28, 2026', amount:'$88,000', status:'submitted', notes:'Final closeout document package submitted February 28. Awaiting EPA confirmation. Retain all records per 3-year post-closeout retention requirement.' },
+    { id:8, title:'IHS SDPI — Budget Modification Request', agency:'IHS', type:'budget', due:new Date(2026,3,10), grant:'IHS-SDPI-2025-007', owner:'Finance', period:'Jan 1, 2026 – Dec 31, 2026', amount:'$321,000', status:'upcoming', notes:'Budget modification exceeds 10% threshold — prior approval required. Submit modification request via GrantSolutions by April 10. Include justification memo and revised budget narrative.' },
+  ];
+
+  let currentView = 'timeline';
+
+  const statusLabel = s => ({ overdue:'Overdue', due:'Due soon', upcoming:'Upcoming', submitted:'Submitted' }[s] || s);
+  const typeLabel = t => ({ report:'Reporting', budget:'Budget', doc:'Document', sub:'Subrecipient' }[t] || t);
+  const fmtDate = d => d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+
+  function daysText(e) {
+    if (e.status === 'submitted') return 'Submitted';
+    const days = Math.ceil((e.due - today) / (1000 * 60 * 60 * 24));
+    if (days < 0) return `${Math.abs(days)} days overdue`;
+    if (days === 0) return 'Due today';
+    return `${days} days`;
+  }
+
+  function getFiltered() {
+    const af = document.getElementById('agency-filter').value;
+    const tf = document.getElementById('type-filter').value;
+    return events.filter(e => {
+      if (af && e.agency !== af) return false;
+      if (tf && e.type !== tf) return false;
+      return true;
+    });
+  }
+
+  function renderStats() {
+    const all = getFiltered();
+    document.getElementById('stats').innerHTML = `
+      <div class="stat"><div class="stat-label">Overdue</div><div class="stat-val danger">${all.filter(e=>e.status==='overdue').length}</div></div>
+      <div class="stat"><div class="stat-label">Due soon</div><div class="stat-val warning">${all.filter(e=>e.status==='due').length}</div></div>
+      <div class="stat"><div class="stat-label">Upcoming</div><div class="stat-val">${all.filter(e=>e.status==='upcoming').length}</div></div>
+      <div class="stat"><div class="stat-label">Submitted</div><div class="stat-val success">${all.filter(e=>e.status==='submitted').length}</div></div>
+    `;
+  }
+
+  function eventCard(e) {
+    return `<div class="event" onclick="showDetail(${e.id})">
+      <div class="event-dot dot-${e.status}"></div>
+      <div class="event-main">
+        <div class="event-title">${e.title}</div>
+        <div class="event-meta">
+          <span>${e.agency}</span>
+          <span>${e.grant}</span>
+          <span>${fmtDate(e.due)}</span>
+        </div>
+      </div>
+      <div class="event-right">
+        <span class="status-badge s-${e.status}">${statusLabel(e.status)}</span>
+        <span class="type-badge">${typeLabel(e.type)}</span>
+        <span class="days-text">${daysText(e)}</span>
+      </div>
+    </div>`;
+  }
+
+  function renderTimeline() {
+    const filtered = getFiltered().sort((a, b) => a.due - b.due);
+    const months = {};
+    filtered.forEach(e => {
+      const key = e.due.toLocaleDateString('en-US', { month:'long', year:'numeric' });
+      if (!months[key]) months[key] = [];
+      months[key].push(e);
+    });
+    if (!Object.keys(months).length) {
+      document.getElementById('main-view').innerHTML = '<div class="no-results">No items match your filters.</div>';
+      return;
+    }
+    let html = '';
+    Object.entries(months).forEach(([month, evts]) => {
+      const done = evts.filter(e => e.status === 'submitted').length;
+      const pct = Math.round((done / evts.length) * 100);
+      html += `<div class="timeline-month">
+        <div class="month-label">${month} <span class="month-sub">${done}/${evts.length} completed</span></div>
+        <div class="timeline-bar"><div class="tbar-fill" style="width:${pct}%"></div></div>
+        <div class="event-list">${evts.map(eventCard).join('')}</div>
+      </div>`;
+    });
+    document.getElementById('main-view').innerHTML = html;
+  }
+
+  function renderList() {
+    const filtered = getFiltered().sort((a, b) => a.due - b.due);
+    document.getElementById('main-view').innerHTML = filtered.length
+      ? `<div class="event-list">${filtered.map(eventCard).join('')}</div>`
+      : '<div class="no-results">No items match your filters.</div>';
+  }
+
+  function render() {
+    renderStats();
+    currentView === 'timeline' ? renderTimeline() : renderList();
+  }
+
+  function setView(v) {
+    currentView = v;
+    document.getElementById('pill-timeline').className = 'vpill' + (v === 'timeline' ? ' active' : '');
+    document.getElementById('pill-list').className = 'vpill' + (v === 'list' ? ' active' : '');
+    render();
+  }
+
+  function showDetail(id) {
+    const e = events.find(x => x.id === id);
+    if (!e) return;
+    document.getElementById('d-title').textContent = e.title;
+    document.getElementById('d-badges').innerHTML = `<span class="status-badge s-${e.status}">${statusLabel(e.status)}</span><span class="type-badge">${typeLabel(e.type)}</span>`;
+    document.getElementById('d-agency').textContent = e.agency;
+    document.getElementById('d-due').textContent = fmtDate(e.due);
+    document.getElementById('d-grant').textContent = e.grant;
+    document.getElementById('d-owner').textContent = e.owner;
+    document.getElementById('d-period').textContent = e.period;
+    document.getElementById('d-amount').textContent = e.amount;
+    document.getElementById('d-notes').textContent = e.notes;
+    document.getElementById('detail-panel').classList.add('open');
+    document.getElementById('detail-panel').scrollIntoView({ behavior:'smooth', block:'nearest' });
+  }
+
+  function closeDetail() {
+    document.getElementById('detail-panel').classList.remove('open');
+  }
+
+  render();
+</script>
+</body>
+</html>

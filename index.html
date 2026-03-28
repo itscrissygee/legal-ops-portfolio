@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contract Intake Form — Crystal Grossley Portfolio</title>
+<title>Crystal Grossley — Legal Ops Portfolio</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -20,14 +20,9 @@
     --accent-bg: #E6F1FB;
     --accent-text: #0C447C;
     --success-bg: #EAF3DE;
-    --success-text: #3B6D11;
-    --success-border: rgba(59,109,17,0.3);
+    --success-text: #27500A;
     --warning-bg: #FAEEDA;
-    --warning-text: #854F0B;
-    --warning-border: rgba(133,79,11,0.3);
-    --danger-bg: #FCEBEB;
-    --danger-text: #A32D2D;
-    --danger-border: rgba(163,45,45,0.3);
+    --warning-text: #633806;
     --radius-md: 8px;
     --radius-lg: 12px;
     --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -48,13 +43,8 @@
       --accent-text: #85B7EB;
       --success-bg: #173404;
       --success-text: #97C459;
-      --success-border: rgba(99,153,34,0.3);
       --warning-bg: #412402;
       --warning-text: #EF9F27;
-      --warning-border: rgba(239,159,39,0.3);
-      --danger-bg: #501313;
-      --danger-text: #F09595;
-      --danger-border: rgba(240,149,149,0.3);
     }
   }
 
@@ -66,650 +56,274 @@
     padding: 2rem 1rem;
   }
 
-  .page-wrap {
-    max-width: 680px;
-    margin: 0 auto;
+  .page-wrap { max-width: 760px; margin: 0 auto; }
+
+  .hero {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 0.5px solid var(--border);
   }
 
-  .page-header {
-    margin-bottom: 2rem;
-  }
-
-  .page-header h1 {
-    font-size: 22px;
+  .avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--accent-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
     font-weight: 500;
-    color: var(--text-primary);
-    margin-bottom: 4px;
+    color: var(--accent-text);
+    margin-bottom: 1rem;
   }
 
-  .page-header p {
-    font-size: 14px;
+  .hero h1 { font-size: 24px; font-weight: 500; margin-bottom: 6px; }
+
+  .hero p {
+    font-size: 15px;
     color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 580px;
+    margin-bottom: 1rem;
   }
 
-  .byline {
+  .tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
+
+  .tag {
+    padding: 3px 10px;
+    border-radius: 20px;
     font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 6px;
+    border: 0.5px solid var(--border);
+    color: var(--text-secondary);
+    background: var(--bg);
   }
 
-  .byline a {
+  .hero-links { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .hero-links a {
+    font-size: 13px;
     color: var(--accent);
     text-decoration: none;
   }
 
-  .progress {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 1.5rem;
-  }
+  .hero-links a:hover { text-decoration: underline; }
 
-  .prog-step {
-    flex: 1;
-    height: 4px;
-    border-radius: 2px;
-    background: var(--border);
-    transition: background 0.2s;
-  }
-
-  .prog-step.done { background: var(--accent); }
-
-  .card {
-    background: var(--bg);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .07em;
     margin-bottom: 1rem;
   }
 
-  .card-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 1.25rem;
-    padding-bottom: 1rem;
-    border-bottom: 0.5px solid var(--border);
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+    margin-bottom: 2.5rem;
   }
 
-  .step-badge {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: var(--accent-bg);
-    color: var(--accent-text);
-    font-size: 13px;
-    font-weight: 500;
+  .project-card {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    text-decoration: none;
+    display: block;
+    transition: border-color .15s;
+  }
+
+  .project-card:hover { border-color: var(--border-med); }
+
+  .card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    margin-bottom: .875rem;
   }
 
-  .card-title { font-size: 15px; font-weight: 500; }
-  .card-sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  .icon-blue { background: var(--accent-bg); }
+  .icon-green { background: var(--success-bg); }
 
-  .field { margin-bottom: 1rem; }
-  .field:last-child { margin-bottom: 0; }
+  .card-title { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 5px; }
 
-  label {
-    display: block;
+  .card-desc {
     font-size: 13px;
     color: var(--text-secondary);
-    margin-bottom: 6px;
+    line-height: 1.6;
+    margin-bottom: .875rem;
   }
 
-  .req { color: var(--danger-text); margin-left: 2px; }
+  .card-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: .875rem; }
 
-  input[type=text],
-  input[type=email],
-  input[type=date],
-  select,
-  textarea {
-    width: 100%;
-    font-family: var(--font);
-    font-size: 14px;
-    color: var(--text-primary);
-    background: var(--bg);
-    border: 0.5px solid var(--border-med);
-    border-radius: var(--radius-md);
-    padding: 8px 12px;
-    outline: none;
-    transition: border-color 0.15s;
-    appearance: none;
-    -webkit-appearance: none;
-  }
-
-  input[type=text]:focus,
-  input[type=email]:focus,
-  input[type=date]:focus,
-  select:focus,
-  textarea:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(24,95,165,0.12);
-  }
-
-  textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
-
-  select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 32px;
-  }
-
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-  @media (max-width: 500px) { .grid2 { grid-template-columns: 1fr; } }
-
-  .radio-group { display: flex; flex-direction: column; gap: 8px; }
-
-  .radio-opt {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 10px 12px;
+  .card-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 20px;
     border: 0.5px solid var(--border);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
+    color: var(--text-secondary);
   }
 
-  .radio-opt:hover { border-color: var(--accent); }
+  .card-cta { font-size: 12px; color: var(--accent); font-weight: 500; }
 
-  .radio-opt.selected {
-    border-color: var(--accent);
-    background: var(--accent-bg);
+  .coming-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-bottom: 2.5rem;
   }
 
-  .radio-opt input[type=radio] {
-    width: auto;
-    margin-top: 3px;
-    flex-shrink: 0;
-    accent-color: var(--accent);
-  }
-
-  .radio-label { font-size: 14px; font-weight: 500; }
-  .radio-desc { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
-
-  .routing-card {
-    display: none;
-    border: 0.5px solid var(--success-border);
-    background: var(--success-bg);
+  .coming-card {
+    background: var(--bg-secondary);
     border-radius: var(--radius-md);
     padding: 1rem;
-    margin-top: 1rem;
   }
 
-  .routing-card.show { display: block; }
-
-  .routing-title {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--success-text);
+  .coming-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 20px;
+    background: var(--warning-bg);
+    color: var(--warning-text);
     margin-bottom: 6px;
   }
 
-  .routing-steps { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .coming-title { font-size: 13px; font-weight: 500; color: var(--text-secondary); margin-bottom: 3px; }
+  .coming-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
 
-  .routing-steps li {
+  .footer {
+    border-top: 0.5px solid var(--border);
+    padding-top: 1.5rem;
     font-size: 13px;
-    color: var(--success-text);
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    line-height: 1.4;
-  }
-
-  .routing-steps li::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--success-text);
-    flex-shrink: 0;
-    margin-top: 4px;
-  }
-
-  .risk-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
-
-  .pill {
-    padding: 5px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    border: 0.5px solid var(--border);
-    color: var(--text-secondary);
-    background: var(--bg);
-    transition: all 0.15s;
-  }
-
-  .pill.active-low { background: var(--success-bg); color: var(--success-text); border-color: var(--success-border); }
-  .pill.active-med { background: var(--warning-bg); color: var(--warning-text); border-color: var(--warning-border); }
-  .pill.active-high { background: var(--danger-bg); color: var(--danger-text); border-color: var(--danger-border); }
-
-  .actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 1.5rem;
-  }
-
-  button {
-    font-family: var(--font);
-    font-size: 14px;
-    padding: 8px 20px;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    border: 0.5px solid var(--border-med);
-    background: var(--bg);
-    color: var(--text-primary);
-    transition: background 0.15s, transform 0.1s;
-  }
-
-  button:hover { background: var(--bg-secondary); }
-  button:active { transform: scale(0.98); }
-
-  button.primary {
-    background: var(--accent-bg);
-    color: var(--accent-text);
-    border-color: rgba(24,95,165,0.3);
-    font-weight: 500;
-  }
-
-  button.primary:hover { opacity: 0.85; background: var(--accent-bg); }
-
-  .summary-card {
-    display: none;
-    background: var(--bg);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
-  }
-
-  .summary-card.show { display: block; }
-
-  .summary-title {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 0.5px solid var(--border);
-  }
-
-  .summary-row {
+    color: var(--text-muted);
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    padding: 7px 0;
-    border-bottom: 0.5px solid var(--border);
-    font-size: 13px;
-    gap: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
-  .summary-row:last-child { border-bottom: none; }
-  .summary-row .key { color: var(--text-secondary); flex-shrink: 0; }
-  .summary-row .val { color: var(--text-primary); font-weight: 500; text-align: right; }
+  .footer a { color: var(--accent); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
 
-  .badge {
-    display: inline-block;
-    padding: 2px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 500;
-  }
-
-  .badge-low { background: var(--success-bg); color: var(--success-text); }
-  .badge-med { background: var(--warning-bg); color: var(--warning-text); }
-  .badge-high { background: var(--danger-bg); color: var(--danger-text); }
-
-  .ref-number {
-    display: inline-block;
-    font-family: monospace;
-    font-size: 13px;
-    background: var(--bg-secondary);
-    padding: 2px 8px;
-    border-radius: 4px;
-    border: 0.5px solid var(--border);
-    color: var(--accent-text);
+  @media (max-width: 480px) {
+    .project-grid { grid-template-columns: 1fr; }
+    .coming-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 <div class="page-wrap">
 
-  <div class="page-header">
-    <h1>Contract request intake</h1>
-    <p>Submit a new contract, MOU, or agreement request for legal review and routing.</p>
-    <p class="byline">Portfolio project by <a href="https://linkedin.com/in/hirecrystalgee" target="_blank">Crystal Grossley</a> — Legal Operations &amp; Contracts Professional</p>
-  </div>
-
-  <div class="progress">
-    <div class="prog-step done" id="p1"></div>
-    <div class="prog-step" id="p2"></div>
-    <div class="prog-step" id="p3"></div>
-    <div class="prog-step" id="p4"></div>
-  </div>
-
-  <!-- STEP 1 -->
-  <div id="step1">
-    <div class="card">
-      <div class="card-header">
-        <div class="step-badge">1</div>
-        <div>
-          <div class="card-title">Contract type</div>
-          <div class="card-sub">Select the type of agreement being requested</div>
-        </div>
-      </div>
-      <div class="field">
-        <label>What type of contract is this? <span class="req">*</span></label>
-        <div class="radio-group">
-          <label class="radio-opt" onclick="selectType(this,'vendor')">
-            <input type="radio" name="ctype" value="vendor">
-            <div><div class="radio-label">Vendor / supplier agreement</div><div class="radio-desc">Services, software, or goods procurement</div></div>
-          </label>
-          <label class="radio-opt" onclick="selectType(this,'mou')">
-            <input type="radio" name="ctype" value="mou">
-            <div><div class="radio-label">MOU / interagency agreement</div><div class="radio-desc">Memoranda of understanding, intergovernmental, or partner agreements</div></div>
-          </label>
-          <label class="radio-opt" onclick="selectType(this,'grant')">
-            <input type="radio" name="ctype" value="grant">
-            <div><div class="radio-label">Grant subaward / subrecipient</div><div class="radio-desc">Federal or foundation grant-funded subcontracts</div></div>
-          </label>
-          <label class="radio-opt" onclick="selectType(this,'nda')">
-            <input type="radio" name="ctype" value="nda">
-            <div><div class="radio-label">NDA / confidentiality agreement</div><div class="radio-desc">Non-disclosure or data use agreements</div></div>
-          </label>
-          <label class="radio-opt" onclick="selectType(this,'other')">
-            <input type="radio" name="ctype" value="other">
-            <div><div class="radio-label">Other</div><div class="radio-desc">Employment, licensing, or custom agreements</div></div>
-          </label>
-        </div>
-      </div>
-      <div class="routing-card" id="routing1">
-        <div class="routing-title" id="routing-title1"></div>
-        <ul class="routing-steps" id="routing-steps1"></ul>
-      </div>
+  <div class="hero">
+    <div class="avatar">CG</div>
+    <h1>Crystal Grossley</h1>
+    <p>Contracts and legal operations professional with a background in federal compliance, fintech, and public sector legal administration — and a self-taught front-end developer. These tools sit at that intersection: domain knowledge driving the logic, code making it usable.</p>
+    <div class="tag-row">
+      <span class="tag">Legal ops</span>
+      <span class="tag">Contract management</span>
+      <span class="tag">Federal compliance</span>
+      <span class="tag">CLM</span>
+      <span class="tag">HTML/CSS/JS</span>
+      <span class="tag">React</span>
     </div>
-    <div class="actions">
-      <button class="primary" onclick="goStep(2)">Continue →</button>
+    <div class="hero-links">
+      <a href="https://linkedin.com/in/hirecrystalgee" target="_blank">LinkedIn</a>
+      <a href="mailto:hirecrystalgee@gmail.com">hirecrystalgee@gmail.com</a>
+      <a href="https://hirecrystalgee.notion.site" target="_blank">Notion portfolio</a>
+      <a href="https://github.com/itscrissygee/legal-ops-portfolio" target="_blank">GitHub</a>
     </div>
   </div>
 
-  <!-- STEP 2 -->
-  <div id="step2" style="display:none">
-    <div class="card">
-      <div class="card-header">
-        <div class="step-badge">2</div>
-        <div>
-          <div class="card-title">Parties &amp; scope</div>
-          <div class="card-sub">Who is involved and what is the agreement for?</div>
-        </div>
+  <div class="section-label">Live projects</div>
+
+  <div class="project-grid">
+    <a class="project-card" href="intake.html">
+      <div class="card-icon icon-blue">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="2" y="2" width="12" height="3" rx="1" fill="#0C447C"/>
+          <rect x="2" y="7" width="8" height="2" rx="1" fill="#0C447C"/>
+          <rect x="2" y="11" width="10" height="2" rx="1" fill="#0C447C"/>
+        </svg>
       </div>
-      <div class="grid2">
-        <div class="field">
-          <label>Requesting department <span class="req">*</span></label>
-          <input type="text" id="dept" placeholder="e.g. Finance, Programs">
-        </div>
-        <div class="field">
-          <label>Counterparty / organization <span class="req">*</span></label>
-          <input type="text" id="counterparty" placeholder="Organization name">
-        </div>
+      <div class="card-title">Contract request intake</div>
+      <div class="card-desc">Multi-step intake form that routes contracts by type, auto-calculates risk level, and generates an approval pathway on submission.</div>
+      <div class="card-tags">
+        <span class="card-tag">CLM</span>
+        <span class="card-tag">Workflow routing</span>
+        <span class="card-tag">Federal compliance</span>
       </div>
-      <div class="field">
-        <label>Brief description of scope <span class="req">*</span></label>
-        <textarea id="scope" placeholder="Describe the services, terms, or purpose of this agreement..."></textarea>
+      <div class="card-cta">View project →</div>
+    </a>
+
+    <a class="project-card" href="clause-library.html">
+      <div class="card-icon icon-blue">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="2" y="2" width="5" height="12" rx="1" fill="#0C447C"/>
+          <rect x="9" y="2" width="5" height="5" rx="1" fill="#0C447C"/>
+          <rect x="9" y="9" width="5" height="5" rx="1" fill="#0C447C"/>
+        </svg>
       </div>
-      <div class="grid2">
-        <div class="field">
-          <label>Estimated start date</label>
-          <input type="date" id="start-date">
-        </div>
-        <div class="field">
-          <label>Estimated end date</label>
-          <input type="date" id="end-date">
-        </div>
+      <div class="card-title">Contract clause library</div>
+      <div class="card-desc">Searchable library of standard contract clauses with risk ratings, drafting notes, and side-by-side comparison across confidentiality, payment, and federal compliance categories.</div>
+      <div class="card-tags">
+        <span class="card-tag">Contract drafting</span>
+        <span class="card-tag">OMB Uniform Guidance</span>
+        <span class="card-tag">Risk assessment</span>
       </div>
+      <div class="card-cta">View project →</div>
+    </a>
+
+    <a class="project-card" href="grant-tracker.html">
+      <div class="card-icon icon-green">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="2" y="2" width="12" height="2" rx="1" fill="#27500A"/>
+          <rect x="2" y="6" width="9" height="2" rx="1" fill="#27500A"/>
+          <rect x="2" y="10" width="11" height="2" rx="1" fill="#27500A"/>
+          <rect x="2" y="14" width="6" height="1" rx="0.5" fill="#27500A"/>
+        </svg>
+      </div>
+      <div class="card-title">Federal grant compliance tracker</div>
+      <div class="card-desc">Timeline dashboard for managing reporting deadlines, budget periods, document status, and subrecipient compliance across multi-agency federal grant portfolios.</div>
+      <div class="card-tags">
+        <span class="card-tag">Grant management</span>
+        <span class="card-tag">2 CFR 200</span>
+        <span class="card-tag">Subrecipient monitoring</span>
+      </div>
+      <div class="card-cta">View project →</div>
+    </a>
+  </div>
+
+  <div class="section-label">Coming soon</div>
+
+  <div class="coming-grid">
+    <div class="coming-card">
+      <div class="coming-badge">In progress</div>
+      <div class="coming-title">Contract review assistant</div>
+      <div class="coming-desc">AI-powered tool that flags key clauses — term, termination, indemnification, governing law — from pasted contract language.</div>
     </div>
-    <div class="actions">
-      <button onclick="goStep(1)">← Back</button>
-      <button class="primary" onclick="goStep(3)">Continue →</button>
+    <div class="coming-card">
+      <div class="coming-badge">In progress</div>
+      <div class="coming-title">Audit readiness checklist</div>
+      <div class="coming-desc">Dynamic checklist tied to OMB Uniform Guidance requirements for federal grant audit preparation.</div>
+    </div>
+    <div class="coming-card">
+      <div class="coming-badge">In progress</div>
+      <div class="coming-title">Legal document summarizer</div>
+      <div class="coming-desc">AI-powered summarizer that extracts key dates, obligations, and parties from uploaded legal documents.</div>
     </div>
   </div>
 
-  <!-- STEP 3 -->
-  <div id="step3" style="display:none">
-    <div class="card">
-      <div class="card-header">
-        <div class="step-badge">3</div>
-        <div>
-          <div class="card-title">Risk &amp; value</div>
-          <div class="card-sub">This determines review level and approval requirements</div>
-        </div>
-      </div>
-      <div class="field">
-        <label>Estimated contract value</label>
-        <select id="contract-value" onchange="updateRisk()">
-          <option value="">Select range</option>
-          <option value="under10k">Under $10,000</option>
-          <option value="10-50k">$10,000 – $50,000</option>
-          <option value="50-250k">$50,000 – $250,000</option>
-          <option value="over250k">Over $250,000</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Does this involve federal funds?</label>
-        <select id="federal-funds" onchange="updateRisk()">
-          <option value="">Select</option>
-          <option value="yes">Yes — federally funded</option>
-          <option value="no">No — organizational funds only</option>
-          <option value="mixed">Mixed / partial federal funding</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Risk level</label>
-        <div class="risk-pills">
-          <div class="pill" id="pill-low" onclick="setRisk('low')">Low</div>
-          <div class="pill" id="pill-med" onclick="setRisk('med')">Medium</div>
-          <div class="pill" id="pill-high" onclick="setRisk('high')">High</div>
-        </div>
-      </div>
-      <div class="routing-card" id="routing3">
-        <div class="routing-title" id="routing-title3"></div>
-        <ul class="routing-steps" id="routing-steps3"></ul>
-      </div>
-    </div>
-    <div class="actions">
-      <button onclick="goStep(2)">← Back</button>
-      <button class="primary" onclick="goStep(4)">Continue →</button>
-    </div>
-  </div>
-
-  <!-- STEP 4 -->
-  <div id="step4" style="display:none">
-    <div class="card">
-      <div class="card-header">
-        <div class="step-badge">4</div>
-        <div>
-          <div class="card-title">Submitter info</div>
-          <div class="card-sub">Who is submitting this request?</div>
-        </div>
-      </div>
-      <div class="grid2">
-        <div class="field">
-          <label>Your name <span class="req">*</span></label>
-          <input type="text" id="submitter-name" placeholder="Full name">
-        </div>
-        <div class="field">
-          <label>Your email <span class="req">*</span></label>
-          <input type="email" id="submitter-email" placeholder="email@org.com">
-        </div>
-      </div>
-      <div class="field">
-        <label>Additional notes</label>
-        <textarea id="notes" placeholder="Special instructions, urgency, or documents to attach..."></textarea>
-      </div>
-    </div>
-    <div class="actions">
-      <button onclick="goStep(3)">← Back</button>
-      <button class="primary" onclick="submitForm()">Submit request</button>
-    </div>
-  </div>
-
-  <!-- SUMMARY -->
-  <div class="summary-card" id="summary">
-    <div class="summary-title">Request submitted — here is your summary</div>
-    <div id="summary-rows"></div>
-    <div class="routing-card show" style="margin-top:1rem">
-      <div class="routing-title">Next steps</div>
-      <ul class="routing-steps" id="summary-next"></ul>
-    </div>
-    <div class="actions" style="margin-top:1rem">
-      <button onclick="resetForm()">Submit another request</button>
-    </div>
+  <div class="footer">
+    <span>Crystal Grossley · Legal Ops Portfolio</span>
+    <span><a href="https://linkedin.com/in/hirecrystalgee" target="_blank">LinkedIn</a> · <a href="https://hirecrystalgee.notion.site" target="_blank">Notion</a> · <a href="mailto:hirecrystalgee@gmail.com">Email</a></span>
   </div>
 
 </div>
-
-<script>
-  let state = { type: '', risk: '', value: '', federal: '' };
-
-  const routingMap = {
-    vendor: {
-      title: 'Standard vendor routing',
-      steps: ['Contracts team intake review (2 business days)', 'Legal review and redline', 'Finance sign-off if over $10K', 'Authorized signatory execution']
-    },
-    mou: {
-      title: 'MOU / interagency routing',
-      steps: ['Contracts team intake review', 'Legal review — tribal regulatory compliance check', 'Program director approval', 'Executive director execution']
-    },
-    grant: {
-      title: 'Grant subaward routing',
-      steps: ['Grants compliance review (OMB Uniform Guidance)', 'Subrecipient risk assessment', 'Finance and program director approval', 'Legal execution and SAM.gov verification']
-    },
-    nda: {
-      title: 'NDA routing',
-      steps: ['Legal review (1–2 business days)', 'Requesting department approval', 'Authorized signatory execution']
-    },
-    other: {
-      title: 'General contract routing',
-      steps: ['Contracts team triage', 'Legal review', 'Department head approval', 'Execution']
-    }
-  };
-
-  const riskRouting = {
-    low: {
-      title: 'Low risk — streamlined approval',
-      steps: ['Contracts coordinator review', 'Department head sign-off', 'Execution within 5 business days']
-    },
-    med: {
-      title: 'Medium risk — standard review',
-      steps: ['Legal counsel review required', 'Finance sign-off', 'Director approval', 'Target: 10 business days']
-    },
-    high: {
-      title: 'High risk — full review required',
-      steps: ['Legal counsel full review', 'Compliance team assessment', 'Executive director approval', 'Board notification if over $250K', 'Target: 15–20 business days']
-    }
-  };
-
-  function selectType(el, val) {
-    document.querySelectorAll('.radio-opt').forEach(o => o.classList.remove('selected'));
-    el.classList.add('selected');
-    state.type = val;
-    const r = routingMap[val];
-    document.getElementById('routing-title1').textContent = r.title;
-    document.getElementById('routing-steps1').innerHTML = r.steps.map(s => `<li>${s}</li>`).join('');
-    document.getElementById('routing1').classList.add('show');
-  }
-
-  function setRisk(level) {
-    state.risk = level;
-    ['low', 'med', 'high'].forEach(l => {
-      const p = document.getElementById('pill-' + l);
-      p.className = 'pill';
-      if (l === level) p.classList.add('active-' + l);
-    });
-    showRiskRouting();
-  }
-
-  function updateRisk() {
-    state.value = document.getElementById('contract-value').value;
-    state.federal = document.getElementById('federal-funds').value;
-    let auto = 'low';
-    if (state.value === 'over250k' || state.federal === 'yes') auto = 'high';
-    else if (state.value === '50-250k' || state.federal === 'mixed') auto = 'med';
-    setRisk(auto);
-  }
-
-  function showRiskRouting() {
-    if (!state.risk) return;
-    const r = riskRouting[state.risk];
-    document.getElementById('routing-title3').textContent = r.title;
-    document.getElementById('routing-steps3').innerHTML = r.steps.map(s => `<li>${s}</li>`).join('');
-    document.getElementById('routing3').classList.add('show');
-  }
-
-  function goStep(n) {
-    [1, 2, 3, 4].forEach(i => {
-      document.getElementById('step' + i).style.display = i === n ? 'block' : 'none';
-      const p = document.getElementById('p' + i);
-      if (p) p.className = 'prog-step' + (i <= n ? ' done' : '');
-    });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function generateRef() {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    let ref = 'CR-';
-    for (let i = 0; i < 6; i++) ref += chars[Math.floor(Math.random() * chars.length)];
-    return ref;
-  }
-
-  function submitForm() {
-    const typeLabels = { vendor: 'Vendor / supplier agreement', mou: 'MOU / interagency agreement', grant: 'Grant subaward / subrecipient', nda: 'NDA / confidentiality agreement', other: 'Other' };
-    const valueLabels = { under10k: 'Under $10,000', '10-50k': '$10,000 – $50,000', '50-250k': '$50,000 – $250,000', over250k: 'Over $250,000' };
-    const federalLabels = { yes: 'Yes — federally funded', no: 'No', mixed: 'Mixed / partial' };
-    const riskBadge = state.risk ? `<span class="badge badge-${state.risk === 'low' ? 'low' : state.risk === 'med' ? 'med' : 'high'}">${state.risk.charAt(0).toUpperCase() + state.risk.slice(1)}</span>` : '—';
-    const ref = generateRef();
-
-    const rows = [
-      ['Reference #', `<span class="ref-number">${ref}</span>`],
-      ['Contract type', typeLabels[state.type] || '—'],
-      ['Requesting dept', document.getElementById('dept').value || '—'],
-      ['Counterparty', document.getElementById('counterparty').value || '—'],
-      ['Scope', document.getElementById('scope').value || '—'],
-      ['Start date', document.getElementById('start-date').value || '—'],
-      ['End date', document.getElementById('end-date').value || '—'],
-      ['Estimated value', valueLabels[state.value] || '—'],
-      ['Federal funds', federalLabels[state.federal] || '—'],
-      ['Risk level', riskBadge],
-      ['Submitted by', document.getElementById('submitter-name').value || '—'],
-      ['Email', document.getElementById('submitter-email').value || '—'],
-    ];
-
-    document.getElementById('summary-rows').innerHTML = rows.map(([k, v]) => `<div class="summary-row"><span class="key">${k}</span><span class="val">${v}</span></div>`).join('');
-
-    const nextSteps = routingMap[state.type] ? routingMap[state.type].steps : ['Contracts team review', 'Legal review', 'Execution'];
-    document.getElementById('summary-next').innerHTML = nextSteps.map(s => `<li>${s}</li>`).join('');
-
-    [1, 2, 3, 4].forEach(i => document.getElementById('step' + i).style.display = 'none');
-    document.getElementById('summary').classList.add('show');
-    [1, 2, 3, 4].forEach(i => { const p = document.getElementById('p' + i); if (p) p.className = 'prog-step done'; });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function resetForm() {
-    document.getElementById('summary').classList.remove('show');
-    document.querySelectorAll('.radio-opt').forEach(o => o.classList.remove('selected'));
-    document.querySelectorAll('input:not([type=radio])').forEach(i => i.value = '');
-    document.querySelectorAll('select').forEach(s => s.value = '');
-    document.querySelectorAll('textarea').forEach(t => t.value = '');
-    document.getElementById('routing1').classList.remove('show');
-    document.getElementById('routing3').classList.remove('show');
-    ['low', 'med', 'high'].forEach(l => document.getElementById('pill-' + l).className = 'pill');
-    state = { type: '', risk: '', value: '', federal: '' };
-    goStep(1);
-  }
-</script>
 </body>
 </html>

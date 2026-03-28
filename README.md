@@ -10,9 +10,10 @@
 
 | Project | Description | Live Demo |
 |---|---|---|
-| Contract Request Intake | Multi-step intake form with workflow routing | [View](https://itscrissygee.github.io/legal-ops-portfolio/) |
+| Contract Request Intake | Multi-step intake form with workflow routing | [View](https://itscrissygee.github.io/legal-ops-portfolio/intake.html) |
 | Contract Clause Library | Searchable clause reference with comparison tool | [View](https://itscrissygee.github.io/legal-ops-portfolio/clause-library.html) |
 | Federal Grant Compliance Tracker | Timeline-based deadline and compliance tracker | [View](https://itscrissygee.github.io/legal-ops-portfolio/grant-tracker.html) |
+| Contract Review Assistant | AI-powered clause extraction and risk analysis | [View](https://itscrissygee.github.io/legal-ops-portfolio/contract-review.html) |
 
 ---
 
@@ -90,7 +91,7 @@ A timeline-based dashboard for tracking reporting deadlines, budget periods, doc
 
 ### Why I built it
 
-This is the tool I actually needed at work. Managing reporting deadlines, subrecipient monitoring schedules, and budget period end dates across multiple federal agencies in a spreadsheet is how things get missed. A visual, filterable tracker with built-in compliance context is the gap this fills.
+This is the tool I actually needed at work. Managing reporting deadlines, subrecipient monitoring schedules, and budget period end dates across multiple federal agencies in a spreadsheet is how things get missed. A visual, filterable tracker with built-in compliance context fills that gap.
 
 ### Tech
 
@@ -105,12 +106,43 @@ This is the tool I actually needed at work. Managing reporting deadlines, subrec
 
 ---
 
+## Project 4 — Contract review assistant
+
+An AI-powered contract review tool that analyzes uploaded contracts and extracts key clauses with risk ratings and drafting analysis.
+
+### What it does
+
+- Upload a contract file (.txt, .pdf, .docx) or paste contract text directly
+- Claude API analyzes the document and extracts 7 clause types simultaneously: Term & Duration, Termination Rights, Indemnification & Liability, Governing Law & Jurisdiction, Payment & Compensation, Confidentiality & NDA, and Intellectual Property
+- Each clause is assigned a risk rating (low / medium / high) with a specific flag or concern
+- Missing clauses are identified and flagged for review before execution
+- Executive summary provides an overall contract risk profile
+
+### Why I built it
+
+Clause-by-clause contract review is time-consuming and easy to rush. This tool surfaces the provisions that matter most — and flags what's missing — so reviewers can focus their attention where the risk actually is.
+
+### Tech
+
+- HTML5, CSS3 (custom properties, responsive layout)
+- Vanilla JavaScript — no frameworks or dependencies
+- Claude API (claude-sonnet-4) for AI-powered clause extraction and analysis
+- FileReader API for client-side file handling
+
+### Domain knowledge reflected
+
+- Clause categories reflect standard legal ops review priorities
+- Risk ratings calibrated to common contracting risk frameworks
+- Missing clause detection addresses a real gap — what's not in the contract matters as much as what is
+
+---
+
 ## About
 
 I'm a contracts and compliance professional with a background spanning federal grant administration, fintech, and public sector legal operations — and a self-taught front-end developer. These projects sit at that intersection intentionally: domain knowledge driving the logic, code making it usable.
 
-**Connect:** [linkedin.com/in/hirecrystalgee](https://linkedin.com/in/hirecrystalgee) · hirecrystalgee@gmail.com
+**Connect:** [linkedin.com/in/hirecrystalgee](https://linkedin.com/in/hirecrystalgee) · hirecrystalgee@gmail.com · [Notion Portfolio](https://hirecrystalgee.notion.site)
 
 ---
 
-*More projects in progress — contract review assistant (AI-powered) and audit readiness checklist coming next.*
+*More projects in progress — audit readiness checklist and legal document summarizer coming next.*

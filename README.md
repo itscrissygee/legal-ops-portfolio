@@ -1,6 +1,6 @@
 # Legal Ops Portfolio — Crystal Grossley
 
-**Live site:** https://[yourusername].github.io/legal-ops-portfolio/
+**Live site:** https://itscrissygee.github.io/legal-ops-portfolio/
 
 > A collection of legal operations and contract management tools built to demonstrate both domain expertise and front-end development skills.
 
@@ -10,9 +10,9 @@
 
 | Project | Description | Live Demo |
 |---|---|---|
-| Contract Request Intake | Multi-step intake form with workflow routing | [View](https://[yourusername].github.io/legal-ops-portfolio/) |
-| Contract Clause Library | Searchable clause reference with comparison tool | [View](https://[yourusername].github.io/legal-ops-portfolio/clause-library.html) |
-| Federal Grant Compliance Tracker | Timeline-based deadline and compliance tracker | [View](https://[yourusername].github.io/legal-ops-portfolio/grant-tracker.html) |
+| Contract Request Intake | Multi-step intake form with workflow routing | [View](https://itscrissygee.github.io/legal-ops-portfolio/) |
+| Contract Clause Library | Searchable clause reference with comparison tool | [View](https://itscrissygee.github.io/legal-ops-portfolio/clause-library.html) |
+| Federal Grant Compliance Tracker | Timeline-based deadline and compliance tracker | [View](https://itscrissygee.github.io/legal-ops-portfolio/grant-tracker.html) |
 
 ---
 
